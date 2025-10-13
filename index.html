@@ -16,16 +16,20 @@
       --max:1100px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;height:100%;overflow:hidden}
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
     .wrap{max-width:var(--max);margin:0 auto;padding:0 1rem}
+    main.wrap{height:calc(100vh - 64px);overflow:hidden}
+    main.wrap>section{display:none;height:100%;overflow:auto}
+    main.wrap>section.active{display:block}
     header{position:sticky;top:0;z-index:10;background:rgba(11,12,16,.7);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid #1c1d24}
     nav{display:flex;align-items:center;justify-content:space-between;height:64px}
     .brand{display:flex;gap:.75rem;align-items:center;font-weight:700}
     .brand-logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--accent));box-shadow:0 0 0 2px #0003}
     .links{display:flex;gap:1rem}
     .menu-btn{display:none}
+    .drawer{display:none}
 
     @media (max-width:820px){
       .links{display:none}
@@ -64,50 +68,92 @@
     .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace;background:#151725;border:1px solid #2a2b33;border-radius:8px;padding:.15rem .35rem;font-size:.85rem}
     .note{border-left:3px solid var(--ring);padding:.75rem 1rem;background:#0f1316;border-radius:10px}
     code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace}
+    .funders{margin-top:2rem;padding-top:1rem;border-top:1px solid #1c1d24}
+    .funders h3{margin:.25rem 0 .75rem;font-size:1rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
+    .logos{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+    .logos a{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:.5rem .75rem;border-radius:12px;background:#0f1116;border:1px solid #1c1d24}
+    .logos img{max-height:32px;max-width:120px;filter:grayscale(1) contrast(.9) opacity(.85);transition:filter .2s ease,opacity .2s ease}
+    .logos img:hover{filter:none;opacity:1}
+    /* Home research highlights */
+    .highlights{margin-top:1.5rem}
+    .highlight-grid{display:grid;gap:1rem;grid-template-columns:repeat(3,1fr)}
+    @media (max-width:900px){.highlight-grid{grid-template-columns:1fr}}
+    .highlight-card{background:var(--card);border:1px solid #1c1d24;border-radius:18px;overflow:hidden}
+    .highlight-card img{display:block;width:100%;height:160px;object-fit:cover}
+    .highlight-card .body{padding:0.85rem}
+    .highlight-card h3{margin:.25rem 0 .35rem;font-size:1.05rem}
+    .highlight-card p{margin:0;color:var(--muted)}
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
       <nav>
-        <a class="brand" href="#home" aria-label="Home">
+        <a class="brand" href="#home" aria-label="Home" onclick="return show('home')">
           <span class="brand-logo" aria-hidden="true"></span>
           <span>Rostami Lab</span>
         </a>
-        <div class="links" role="navigation" aria-label="Primary">
-          <a href="#home">Home</a>
-          <a href="#people">People</a>
-          <a href="#research">Research</a>
-          <a href="#teaching">Teaching</a>
-          <a href="#cv">CV</a>
-          <a href="#news-events">News &amp; Events</a>
-          <a href="#contact">Contact</a>
+        <div class="links" role="navigation" aria-label="Primary">          <a href="#people" onclick="return show('people')">People</a>
+          <a href="#research" onclick="return show('research')">Research</a>
+          <a href="#teaching" onclick="return show('teaching')">Teaching</a>
+          <a href="#cv" onclick="return show('cv')">CV</a>
+          <a href="#news-events" onclick="return show('news-events')">News &amp; Events</a>
+          <a href="#contact" onclick="return show('contact')">Contact</a>
         </div>
         <button class="menu-btn" aria-controls="drawer" aria-expanded="false" onclick="toggleDrawer(this)">Menu</button>
       </nav>
     </div>
     <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
-      <a href="#home" onclick="toggleDrawer()">Home</a>
-      <a href="#people" onclick="toggleDrawer()">People</a>
-      <a href="#research" onclick="toggleDrawer()">Research</a>
-      <a href="#teaching" onclick="toggleDrawer()">Teaching</a>
-      <a href="#cv" onclick="toggleDrawer()">CV</a>
-      <a href="#news-events" onclick="toggleDrawer()">News &amp; Events</a>
-      <a href="#contact" onclick="toggleDrawer()">Contact</a>
+      <a href="#people" onclick="toggleDrawer();return show('people')">People</a>
+      <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
+      <a href="#teaching" onclick="toggleDrawer();return show('teaching')">Teaching</a>
+      <a href="#cv" onclick="toggleDrawer();return show('cv')">CV</a>
+      <a href="#news-events" onclick="toggleDrawer();return show('news-events')">News &amp; Events</a>
+      <a href="#contact" onclick="toggleDrawer();return show('contact')">Contact</a>
     </div>
   </header>
 
   <main id="home" class="wrap">
-    <section class="hero" aria-labelledby="hero-title">
+    <section id="home" class="hero" aria-labelledby="hero-title">
       <p class="pill">University of Bath <span class="tag">Physics</span></p>
       <h1 id="hero-title">Rostami Lab</h1>
       <p>We study quantum transport, nonlinear optics, and many-body physics in 2D materials.</p>
-      <div class="cta">
-        <a class="btn primary" href="#research">Explore research</a>
-        <a class="btn" href="#people">People</a>
-        <a class="btn" href="#research">Research &amp; Publications<\/a>
+      <div class="highlights" aria-label="Research highlights">
+        <div class="highlight-grid">
+          <article class="highlight-card">
+            <img src="assets/highlights/mott-gap.jpg" alt="Visualization of interaction-induced Mott gap in a Dirac material" />
+            <div class="body">
+              <h3>Interaction‑induced Mott gap</h3>
+              <p>Strong correlations and symmetry breaking in Dirac systems.</p>
+            </div>
+          </article>
+          <article class="highlight-card">
+            <img src="assets/highlights/floquet-keldysh.jpg" alt="Schematic of Floquet–Keldysh driven 2D system" />
+            <div class="body">
+              <h3>Floquet–Keldysh framework</h3>
+              <p>Non‑equilibrium Green’s functions for driven 2D materials.</p>
+            </div>
+          </article>
+          <article class="highlight-card">
+            <img src="assets/highlights/chiral-phonons.jpg" alt="Illustration of chiral phonons in a strained TMD" />
+            <div class="body">
+              <h3>Chiral phonons & nonlinear phononics</h3>
+              <p>Strain‑engineered light–matter interactions in TMDs.</p>
+            </div>
+          </article>
+        </div>
       </div>
-      <p class="fine" style="margin-top:1rem">Lead PI: <strong>Dr Habib Rostami</strong> (Assistant Professor of Physics) · <a href="mailto:you@bath.ac.uk">you@bath.ac.uk</a> · <a href="https://orcid.org/" target="_blank" rel="noreferrer">ORCID</a></p>
+
+      <div class="funders" aria-label="Funders and sponsors">
+        <h3>Funders</h3>
+        <div class="logos">
+          <a href="#" aria-label="UKRI"><img src="assets/funders/ukri.svg" alt="UKRI" /></a>
+          <a href="#" aria-label="EPSRC"><img src="assets/funders/epsrc.svg" alt="EPSRC" /></a>
+          <a href="#" aria-label="Royal Society"><img src="assets/funders/royalsociety.svg" alt="Royal Society" /></a>
+          <a href="#" aria-label="EU"><img src="assets/funders/eu.svg" alt="European Union" /></a>
+        </div>
+        <p class="fine">Add your funder logos to <code>assets/funders/</code> and update links above.</p>
+      </div>
     </section>
 
     <section id="people" class="people" aria-labelledby="people-title">
@@ -116,11 +162,11 @@
       <h3>Principal Investigator</h3>
       <div class="grid">
         <article class="card person">
-          <img class="avatar" src="assets/people/habib.jpg" alt="Dr Habib Rostami — Principal Investigator" />
+          <img class="avatar" src="assets/people/profile-picture-HabibRostami.png" alt="Dr Habib Rostami — Principal Investigator" />
           <div>
             <h3>Dr Habib Rostami <span class="tag">PI</span></h3>
             <p class="meta">Quantum transport · Nonlinear optics · 2D materials</p>
-            <p><a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+            <p><a href="mailto:you@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
       </div>
@@ -132,7 +178,7 @@
           <div>
             <h3>Dr Shubham Patel <span class="tag">PDRA</span></h3>
             <p class="meta">Nonlinear phononics · Quantum transport</p>
-            <p><a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+            <p><a href="mailto:sp3346@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
       </div>
@@ -144,7 +190,7 @@
           <div>
             <h3>Pablo Reiser Ramirez <span class="tag">PhD</span></h3>
             <p class="meta">Floquet–Keldysh · 2D materials</p>
-            <p><a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+            <p><a href="mailto:pcir20@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
         <article class="card person">
@@ -152,7 +198,7 @@
           <div>
             <h3>Luke Pimlott <span class="tag">PhD</span></h3>
             <p class="meta">Quantum transport · Many-body theory</p>
-            <p><a href="mailto:jlp62@bath.ac.uk">Email</a></p>
+            <p><a href="mailto:jlp62@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
         <article class="card person">
@@ -160,23 +206,29 @@
           <div>
             <h3>Rufus Stanier <span class="tag">PhD</span></h3>
             <p class="meta">Quantum transport · 2D materials</p>
-            <p><a href="mailto:rs3430@bath.ac.uk">Email</a></p>
+            <p><a href="mailto:rs3430@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
+        
+        
+      </div>
+
+      <h3>Co-supervision</h3>
+      <div class="grid cols-3">
         <article class="card person">
-          <img class="avatar" src="assets/people/brook.jpg" alt="Brook Salter — PhD Student" />
+          <img class="avatar" src="assets/people/brook.jpg" alt="Brook Salter — PhD Student (co-supervised)" />
           <div>
             <h3>Brook Salter <span class="tag">PhD</span></h3>
             <p class="meta">Mesoscopic physics · Theory</p>
-            <p><a href="mailto:bs2210@bath.ac.uk">Email</a></p>
+            <p><a href="mailto:bs2210@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
         <article class="card person">
-          <img class="avatar" src="assets/people/jamie.jpg" alt="Jamie Mclauchlan — PhD Student" />
+          <img class="avatar" src="assets/people/jamie.jpg" alt="Jamie Mclauchlan — PhD Student (co-supervised)" />
           <div>
             <h3>Jamie Mclauchlan <span class="tag">PhD</span></h3>
             <p class="meta">Quantum transport · Computation</p>
-            <p><a href="mailto:jm3296@bath.ac.uk">Email</a></p>
+            <p><a href="mailto:jm3296@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
       </div>
@@ -317,6 +369,15 @@
       if(btn){btn.setAttribute('aria-expanded',String(open));}
     }
     document.getElementById('year').textContent = new Date().getFullYear();
+    const sections=[...document.querySelectorAll('main > section')];
+    function show(id){
+      sections.forEach(s=>s.classList.toggle('active', s.id===id));
+      history.replaceState(null,'','#'+id);
+      return false;
+    }
+    // initialize from hash or default to home
+    const initial=(location.hash||'#home').slice(1);
+    show(initial);
   </script>
 </body>
 </html>
