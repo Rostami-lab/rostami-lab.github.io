@@ -69,7 +69,7 @@
     .pill{display:inline-block;background:#151725;border:1px solid #2a2b33;border-radius:999px;padding:.2rem .55rem;font-size:.8rem}
     .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace;background:#151725;border:1px solid #2a2b33;border-radius:8px;padding:.15rem .35rem;font-size:.85rem}
     .note{border-left:3px solid var(--ring);padding:.75rem 1rem;background:#0f1316;border-radius:10px}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono",monospace}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace}
     .funders{margin-top:2rem;padding-top:1rem;border-top:1px solid #1c1d24}
     .funders h3{margin:.25rem 0 .75rem;font-size:1rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
     .logos{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
@@ -122,6 +122,15 @@
       <p class="pill">University of Bath <span class="tag">Physics</span></p>
       <h1 id="hero-title">Rostami Lab</h1>
       <p>We study quantum transport, nonlinear optics, and many-body physics in 2D materials.</p>
+
+      <!-- About block -->
+      <div class="grid">
+        <article class="card">
+          <h3>About</h3>
+          <p>I am a theoretical condensed-matter physicist and Lecturer in Physics at the University of Bath. My research develops analytical and numerical frameworks for quantum many-body phenomena in real materials, with emphasis on two-dimensional systems, quantum transport, nonlinear optics, and light–matter interactions.</p>
+        </article>
+      </div>
+
       <div class="highlights" aria-label="Research highlights">
         <div class="highlight-grid">
           <article class="highlight-card">
@@ -139,9 +148,9 @@
             </div>
           </article>
           <article class="highlight-card">
-            <img src="assets/highlights/mott-gap.jpg" alt="Fermi liquid theory of -wave altermagnets — 2025" />
+            <img src="assets/highlights/mott-gap.jpg" alt="Fermi liquid theory of d-wave altermagnets — 2025" />
             <div class="body">
-              <h3>Fermi liquid theory of -wave altermagnets: demon modes and Fano-demon states</h3>
+              <h3>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</h3>
               <p>H Rostami, J Hofmann · arXiv:2505.07083 (2025)</p>
             </div>
           </article>
@@ -213,8 +222,6 @@
             <p><a href="mailto:rs3430@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
         </article>
-        
-        
       </div>
 
       <h3>Co-supervision</h3>
@@ -252,7 +259,21 @@
 
     <section id="research" aria-labelledby="research-title">
       <h2 id="research-title">Research Highlights</h2>
-      <div class="grid cols-3">
+
+      <!-- Research interests -->
+      <div class="grid">
+        <article class="card">
+          <h3>Research interests</h3>
+          <ul>
+            <li>2D materials (graphene, TMDs), moiré/strain engineering</li>
+            <li>Non-equilibrium &amp; Floquet physics; Green’s-function methods</li>
+            <li>Quantum transport, photocurrents, and nonlinear optical response</li>
+            <li>Phononics and electron–phonon interactions in layered materials</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:1rem">
         <article class="card">
           <h3>Chiral phonons</h3>
           <p class="meta">DM Juraschek, RM Geilhufe, H Zhu, M Basini, P Baum, A Baydin, … · <em>Nature Physics</em> (2025)</p>
@@ -264,13 +285,47 @@
           <p><a href="#">arXiv</a></p>
         </article>
         <article class="card">
-          <h3>Fermi liquid theory of -wave altermagnets: demon modes and Fano-demon states</h3>
+          <h3>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</h3>
           <p class="meta">H Rostami, J Hofmann · arXiv:2505.07083 (2025)</p>
           <p><a href="#">arXiv</a></p>
         </article>
       </div>
 
-      <h3 id="pubs-title" style="margin-top:1.5rem">Publications</h3>
+      <!-- Track record -->
+      <h3 id="track" style="margin-top:1.5rem">Track record</h3>
+      <div class="grid cols-3">
+        <article class="card">
+          <h3>Publications &amp; impact</h3>
+          <p class="meta">51 publications (46 peer-reviewed); h-index 21; &gt;2000 citations</p>
+        </article>
+        <article class="card">
+          <h3>Invited talks</h3>
+          <p class="meta">32 invited seminars, schools, and conference talks</p>
+        </article>
+        <article class="card">
+          <h3>Editorial &amp; refereeing</h3>
+          <p class="meta">Associate Editor, <em>Frontiers in Quantum Materials</em>; reviewer for APS/IOP/NPG journals; panel reviews for DOE (US) &amp; DFG (DE)</p>
+        </article>
+      </div>
+
+      <!-- Grants & awards -->
+      <h3 id="grants" style="margin-top:1.5rem">Grants &amp; awards</h3>
+      <div class="grid cols-2">
+        <article class="card">
+          <h3>Major grants</h3>
+          <ul>
+            <li><strong>EPSRC New Investigator Award (UKRI)</strong> — £549k (tuneable nonlinear phononics)</li>
+            <li><strong>VR Starting Grant (Swedish Research Council)</strong> — 3.28M SEK (nonlinear optics &amp; transport in 2D materials)</li>
+            <li><strong>Royal Society International Exchange</strong> — £12k (acoustoelectric effects)</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Awards</h3>
+          <p class="meta">Best PhD Thesis Award, Iranian Physical Society</p>
+        </article>
+      </div>
+
+      <h3 id="pubs-title" style="margin-top:1.5rem">Selected Publications</h3>
       <div class="grid">
         <article class="card">
           <h3>Paper Title Goes Here (2025)</h3>
@@ -285,8 +340,6 @@
       </div>
     </section>
 
-    
-
     <section id="news-events" aria-labelledby="news-title">
       <h2 id="news-title">News &amp; Events</h2>
       <div class="grid cols-2">
@@ -296,28 +349,32 @@
         </article>
         <article class="card">
           <h3>Sep 2025 — Paper accepted</h3>
-          <p>Our work on interaction‑induced Mott gap opening in Dirac materials has been accepted to <em>PRB</em>.</p>
+          <p>Our work on interaction-induced Mott gap opening in Dirac materials has been accepted to <em>PRB</em>.</p>
         </article>
       </div>
     </section>
-
-    
 
     <section id="teaching" aria-labelledby="teaching-title">
       <h2 id="teaching-title">Teaching</h2>
       <div class="grid cols-2">
         <article class="card">
-          <h3>Many‑body Green's functions (UG)</h3>
-          <p class="meta">Finite‑temperature techniques and applications.</p>
+          <h3>Contemporary Physics; Advanced Problem Solving</h3>
+          <p class="meta">Lecturer &amp; assessor, University of Bath</p>
         </article>
         <article class="card">
-          <h3>PH30024 / PH40024</h3>
-          <p class="meta">Report writing and research analysis; supervision of projects in mesoscopic physics.</p>
+          <h3>Mathematical Physics (Phase Transitions &amp; Critical Phenomena)</h3>
+          <p class="meta">Lecturer &amp; assessor, University of Bath</p>
+        </article>
+        <article class="card">
+          <h3>Advanced Topics in Electrodynamics</h3>
+          <p class="meta">Lecturer &amp; examiner, University of Iceland (two semesters)</p>
+        </article>
+        <article class="card">
+          <h3>Modern Condensed Matter Physics (graduate)</h3>
+          <p class="meta">Nordita/Stockholm</p>
         </article>
       </div>
     </section>
-
-    
 
     <section id="cv" aria-labelledby="cv-title">
       <h2 id="cv-title">CV</h2>
@@ -325,6 +382,18 @@
         <article class="card">
           <h3>Download CV</h3>
           <p><a href="assets/cv/Habib_Rostami_CV.pdf" download>Habib_Rostami_CV.pdf</a></p>
+        </article>
+        <article class="card">
+          <h3>Positions</h3>
+          <ul>
+            <li><strong>Lecturer</strong>, University of Bath (2022–present)</li>
+            <li><strong>Researcher (fixed-term assistant professor)</strong>, Nordita/Stockholm University (2019–2022)</li>
+            <li><strong>Postdoctoral researcher</strong>, SNS Pisa &amp; IIT Genova (2015–2017); Nordita (2017–2018)</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Supervision</h3>
+          <p class="meta">Primary supervisor for 3 PhD students (Luke Pimlott, Pablo Reiser, Jamie McLauchlan); additional PhD co-supervisions; prior supervision of a postdoc and multiple MSc/MPhys projects. New PhD (Autumn 2025) and postdoc (Spring 2025) starting.</p>
         </article>
       </div>
     </section>
@@ -351,7 +420,7 @@
     <section aria-labelledby="credits-title">
       <h2 id="credits-title">Colleagues & Collaborators</h2>
       <div class="grid cols-3">
-        <article class="card"><h3>Mauro</h3><p class="meta">Many‑body theory · Response functions</p></article>
+        <article class="card"><h3>Mauro</h3><p class="meta">Many-body theory · Response functions</p></article>
         <article class="card"><h3>Giovanni</h3><p class="meta">Chiral phonons · Strain physics</p></article>
         <article class="card"><h3>Hans Hansson</h3><p class="meta">Quantum Hall · Chern–Simons</p></article>
       </div>
