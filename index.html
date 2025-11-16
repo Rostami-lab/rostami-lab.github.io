@@ -66,37 +66,48 @@
       background:linear-gradient(135deg,var(--brand),var(--accent));
       box-shadow:0 0 0 2px #00000014;
     }
-    .links-right{display:flex;gap:1rem;margin-left:auto;white-space:nowrap}
+
+    /* hide horizontal menu entirely (we use vertical drawer instead) */
+    .links-right{
+      display:none;
+      gap:1rem;margin-left:auto;white-space:nowrap;
+    }
+
     .menu-btn{display:none}
 
-@media (max-width:820px){
-  .links-right{display:none}
-  .menu-btn{
-    display:block;
-    background:none;
-    border:1px solid var(--border);
-    padding:.35rem .6rem;
-    border-radius:.75rem;
-    color:var(--text);
-    cursor:pointer;
-  }
+    /* ===== Desktop: vertical left menu (drawer) ===== */
+    .drawer{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:.35rem 1rem .5rem;
+    }
+    .drawer a{
+      display:block;
+      padding:.15rem 0;
+    }
 
-  .drawer{
-    display:none;                 /* override desktop */
-    position:fixed;
-    top:64px;left:0;right:0;bottom:0;
-    background:#ffffff;
-    overflow:auto;
-    z-index:9;
-    padding:0;
-  }
-  .drawer.open{display:block}
-  .drawer a{
-    display:block;
-    padding:1rem 1.25rem;
-    border-bottom:1px solid var(--border);
-  }
-}
+    /* ===== Mobile nav: full-screen white overlay below header ===== */
+    @media (max-width:820px){
+      .menu-btn{
+        display:block;background:none;border:1px solid var(--border);
+        padding:.35rem .6rem;border-radius:.75rem;color:var(--text);cursor:pointer;
+      }
+      .drawer{
+        display:none;
+        position:fixed;
+        top:64px;left:0;right:0;bottom:0;
+        background:#ffffff;       /* fully opaque white */
+        overflow:auto;
+        z-index:9;                /* below header (z=10) */
+        max-width:none;
+        margin:0;
+        padding:0;
+      }
+      .drawer.open{display:block}
+      .drawer a{
+        display:block;padding:1rem 1.25rem;border-bottom:1px solid var(--border)
+      }
+    }
 
     /* ===== Hero / buttons ===== */
     .hero{padding:1.25rem 0 2rem}
@@ -187,8 +198,8 @@
         </button>
       </nav>
     </div>
-    <!-- Mobile-only full-screen drawer -->
-    <div id="drawer" class="drawer" aria-label="Mobile menu">
+    <!-- Vertical menu (desktop) / drawer (mobile) -->
+    <div id="drawer" class="drawer" aria-label="Section menu">
       <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
       <a href="#people" onclick="toggleDrawer();return show('people')">People</a>
       <a href="#teaching" onclick="toggleDrawer();return show('teaching')">Teaching</a>
@@ -242,7 +253,7 @@
     </section>
 
     <!-- ===== PEOPLE ===== -->
-    <section id="people" class="people active" aria-labelledby="people-title">
+    <section id="people" class="people" aria-labelledby="people-title">
       <h2 id="people-title">People</h2>
 
       <h3>Principal Investigator</h3>
@@ -480,11 +491,11 @@
 
     const sections = [...document.querySelectorAll('main > section')];
 
-    function show(id){
+    window.show = function(id){
       sections.forEach(s => s.classList.toggle('active', s.id === id));
       history.replaceState(null, '', '#' + id);
       return false;
-    }
+    };
 
     // initialize from hash or default to home
     const initial = (location.hash || '#home').slice(1);
