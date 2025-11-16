@@ -11,16 +11,16 @@
   <meta property="og:image" content="assets/og-image.jpg" />
   <link rel="icon" href="assets/favicon.png" />
   <style>
-    /* ===== Lighter theme variables ===== */
+    /* ===== Theme variables ===== */
     :root{
-      --bg:#ffffff;          /* page background (pure white) */
-      --card:#ffffff;        /* card background */
-      --text:#0f172a;        /* main text */
-      --muted:#475569;       /* secondary text */
-      --brand:#2563eb;       /* primary brand */
-      --accent:#a78bfa;      /* accent */
-      --ring:#0ea5a4;        /* teal ring/accent */
-      --border:#eaeaea;      /* extra-light border */
+      --bg:#ffffff;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --brand:#2563eb;
+      --accent:#a78bfa;
+      --ring:#0ea5a4;
+      --border:#eaeaea;
       --max:1100px;
     }
 
@@ -28,45 +28,54 @@
     html,body{
       margin:0;padding:0;background:var(--bg);color:var(--text);
       font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      height:100%;overflow:hidden
+      height:100%;overflow:hidden;
     }
+
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
+
     .wrap{max-width:var(--max);margin:0 auto;padding:0 1rem}
+
     main.wrap{height:calc(100vh - 64px);overflow:hidden}
     main.wrap>section{display:none;height:100%;overflow:auto}
     main.wrap>section.active{display:block}
 
-    /* ===== Header / nav (light) ===== */
+    /* ===== Header / nav ===== */
     header{
       position:sticky;top:0;z-index:10;
       background:rgba(255,255,255,.9);
       backdrop-filter:saturate(150%) blur(8px);
-      border-bottom:1px solid var(--border)
+      border-bottom:1px solid var(--border);
     }
     nav{display:flex;align-items:center;justify-content:space-between;height:64px;flex-wrap:nowrap}
     .brand{display:flex;gap:.75rem;align-items:center;font-weight:700}
     .brand-logo{
       width:36px;height:36px;border-radius:10px;
       background:linear-gradient(135deg,var(--brand),var(--accent));
-      box-shadow:0 0 0 2px #00000014
+      box-shadow:0 0 0 2px #00000014;
     }
     .links-right{display:flex;gap:1rem;margin-left:auto;white-space:nowrap}
     .menu-btn{display:none}
 
-    /* Mobile nav */
+    /* Drawer: base (hidden on desktop) */
+    .drawer{display:none}
+
+    /* ===== Mobile nav ===== */
     @media (max-width:820px){
       .links-right{display:none}
       .menu-btn{
         display:block;background:none;border:1px solid var(--border);
-        padding:.35rem .6rem;border-radius:.75rem;color:var(--text)
+        padding:.35rem .6rem;border-radius:.75rem;color:var(--text);cursor:pointer;
       }
       .drawer{
-        display:none;position:fixed;inset:64px 0 0;
-        backdrop-filter:blur(8px);background:rgba(255,255,255,.96)
+        position:fixed;inset:64px 0 0;
+        backdrop-filter:blur(8px);
+        background:rgba(255,255,255,.96);
       }
       .drawer.open{display:block}
-      .drawer a{display:block;padding:1rem 1.25rem;border-bottom:1px solid var(--border)}
+      .drawer a{
+        display:block;padding:1rem 1.25rem;border-bottom:1px solid var(--border)
+      }
     }
 
     /* ===== Hero / buttons ===== */
@@ -110,17 +119,17 @@
     .note{border-left:3px solid var(--ring);padding:.75rem 1rem;background:#eefaf8;border-radius:10px}
     code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace}
 
-    /* ===== Funders (doubled logo size + light tiles) ===== */
+    /* ===== Funders ===== */
     .funders{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border)}
     .funders h3{margin:.25rem 0 .75rem;font-size:1rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
     .logos{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
     .logos a{
       display:inline-flex;align-items:center;justify-content:center;
-      height:96px; padding:1rem 1.25rem; border-radius:12px;
-      background:#ffffff; border:1px solid var(--border)
+      height:96px;padding:1rem 1.25rem;border-radius:12px;
+      background:#ffffff;border:1px solid var(--border)
     }
     .logos img{
-      max-height:64px; max-width:240px;
+      max-height:64px;max-width:240px;
       filter:grayscale(1) contrast(.9) opacity(.9);
       transition:filter .2s ease,opacity .2s ease
     }
@@ -140,24 +149,35 @@
 <body>
   <header>
     <div class="wrap">
-      <nav>
+      <nav aria-label="Primary navigation">
         <a class="brand" href="#home" aria-label="Home" onclick="return show('home')">
           <span class="brand-logo" aria-hidden="true"></span>
           <span>Rostami Lab</span>
         </a>
+
+        <div class="links-right">
+          <a href="#research" onclick="return show('research')">Research</a>
+          <a href="#people" onclick="return show('people')">People</a>
+          <a href="#teaching" onclick="return show('teaching')">Teaching</a>
+          <a href="#cv" onclick="return show('cv')">CV</a>
+          <a href="#news-events" onclick="return show('news-events')">News &amp; Events</a>
+          <a href="#contact" onclick="return show('contact')">Contact</a>
+        </div>
+
         <button class="menu-btn" aria-controls="drawer" aria-expanded="false" onclick="toggleDrawer(this)">
           Menu
         </button>
       </nav>
     </div>
-    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+
+    <nav id="drawer" class="drawer" aria-label="Mobile navigation">
       <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
       <a href="#people" onclick="toggleDrawer();return show('people')">People</a>
       <a href="#teaching" onclick="toggleDrawer();return show('teaching')">Teaching</a>
       <a href="#cv" onclick="toggleDrawer();return show('cv')">CV</a>
       <a href="#news-events" onclick="toggleDrawer();return show('news-events')">News &amp; Events</a>
       <a href="#contact" onclick="toggleDrawer();return show('contact')">Contact</a>
-    </div>
+    </nav>
   </header>
 
   <main class="wrap">
@@ -165,6 +185,7 @@
       <p class="pill">University of Bath <span class="tag">Physics</span></p>
       <h1 id="hero-title">Rostami Lab</h1>
       <p>We study quantum transport, nonlinear response theory, and many-body phenomena in quantum materials.</p>
+
       <div class="highlights" aria-label="Research highlights">
         <div class="highlight-grid">
           <article class="highlight-card">
@@ -196,7 +217,7 @@
         <div class="logos">
           <a href="#" aria-label="EPSRC"><img src="assets/funders/epsrc.png" alt="EPSRC" /></a>
           <a href="#" aria-label="Royal Society"><img src="assets/funders/rs.png" alt="Royal Society" /></a>
-          <a href="#" aria-label="VR"><img src="assets/funders/vr.jpg" alt="Swedish Research Council (VR)" /></a>
+          <a href="#" aria-label="Swedish Research Council"><img src="assets/funders/vr.jpg" alt="Swedish Research Council (VR)" /></a>
         </div>
         <p class="fine">Add your funder logos to <code>assets/funders/</code> and update links above.</p>
       </div>
@@ -210,7 +231,7 @@
         <article class="card person">
           <img class="avatar" src="assets/people/habib.jpg" alt="Dr Habib Rostami — Principal Investigator" />
           <div>
-            <h3>Asst Prof Dr Habib Rostami<span class="tag">PI</span></h3>
+            <h3>Asst Prof Dr Habib Rostami <span class="tag">PI</span></h3>
             <p class="meta">Quantum transport · Nonlinear optics · 2D materials</p>
             <p><a href="mailto:hr745@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
           </div>
@@ -229,7 +250,7 @@
         </article>
       </div>
 
-      <h3>PhD Students </h3>
+      <h3>PhD Students</h3>
       <div class="grid cols-3">
         <article class="card person">
           <img class="avatar" src="assets/people/pablo.jpg" alt="Pablo Reiser Ramirez — PhD Student" />
@@ -276,11 +297,11 @@
       <h3>Masters &amp; Final-year UG Projects</h3>
       <div class="grid cols-3">
         <article class="card person">
-          <img class="avatar" src="assets/people/placeholder.jpg" alt="MSc/MPhys projects" />
+          <img class="avatar" src="assets/people/placeholder.jpg" alt="MSc and MPhys projects" />
           <div>
             <h3>Projects</h3>
             <p class="meta">Opportunities in mesoscopic physics, Keldysh techniques, and 2D materials.</p>
-            <p><a href="#contact">Contact the PI</a></p>
+            <p><a href="#contact" onclick="return show('contact')">Contact the PI</a></p>
           </div>
         </article>
       </div>
@@ -340,61 +361,56 @@
       <div class="grid cols-2">
         <article class="card">
           <h3>Many-body Green's functions (UG)</h3>
-          <p class="meta">Finite-temperature techniques and applications.</p>
+          <p class="meta">Finite-temperature Green's function techniques and applications.</p>
         </article>
         <article class="card">
           <h3>PH30024 / PH40024</h3>
-          <p class="meta">Report writing and research analysis; supervision of projects in mesoscopic physics.</p>
+          <p class="meta">Report writing, research analysis, and supervision of projects in mesoscopic physics.</p>
         </article>
       </div>
     </section>
 
     <section id="cv" aria-labelledby="cv-title">
-      <h2 id="cv-title">CV's Dr Habib Rostami</h2>
+      <h2 id="cv-title">CV of Dr Habib Rostami</h2>
       <div class="grid">
-        <!-- Personal Statement -->
         <article class="card">
           <h3>Personal statement</h3>
-          <p>I am a condensed matter physicist and an assistant professor at the University of Bath, specializing in quantum many-body problems for real-world materials using analytical and numerical techniques, with expertise in quantum transport and light-matter interaction in 2D materials.</p>
+          <p>I am a condensed matter physicist and assistant professor at the University of Bath, specializing in quantum many-body problems for real-world materials using analytical and numerical techniques, with expertise in quantum transport and light–matter interaction in 2D materials.</p>
         </article>
 
-        <!-- Positions -->
         <article class="card">
           <h3>Positions</h3>
           <ul>
-            <li><strong>Assistant professor (Lecturer) </strong>, University of Bath, Physics Department (2022–present)</li>
-            <li><strong>Researcher (fixed-term assistant professor)</strong>, Nordita/Stockholm University, Sweden (2019–2022)</li>
-            <li><strong>Postdoctoral researcher</strong>, Scuola Normale Superiore &amp; IIT Genova, Italy (2015–2017); Nordita/Stockholm University (2017–2018)</li>
+            <li><strong>Assistant professor (Lecturer)</strong>, University of Bath, Department of Physics (2022–present)</li>
+            <li><strong>Researcher (fixed-term assistant professor)</strong>, Nordita / Stockholm University, Sweden (2019–2022)</li>
+            <li><strong>Postdoctoral researcher</strong>, Scuola Normale Superiore &amp; IIT Genova, Italy (2015–2017); Nordita / Stockholm University (2017–2018)</li>
           </ul>
         </article>
 
-        <!-- Grants & Awards -->
         <article class="card">
           <h3>Grants &amp; awards</h3>
           <ul>
-            <li><strong>EPSRC New Investigator Award (UKRI)</strong> —tuneable nonlinear phononics in layered quantum materials</li>
-            <li><strong>VR Starting Grant</strong> (Swedish Research Council) —nonlinear optics &amp; transport in 2D materials</li>
-            <li><strong>Royal Society International Exchange</strong> —anomalous acoustoelectric effects with Prof. Robert Blick, Hamburg</li>
+            <li><strong>EPSRC New Investigator Award (UKRI)</strong> — tuneable nonlinear phononics in layered quantum materials</li>
+            <li><strong>VR Starting Grant</strong> (Swedish Research Council) — nonlinear optics and transport in 2D materials</li>
+            <li><strong>Royal Society International Exchange</strong> — anomalous acoustoelectric effects with Prof. Robert Blick, Hamburg</li>
             <li><strong>Best PhD Thesis Award</strong>, Iranian Physical Society</li>
           </ul>
         </article>
 
-        <!-- Education -->
         <article class="card">
           <h3>Education</h3>
           <ul>
-            <li><strong>PhD (Theoretical Physics)</strong>, IPM—Institute for Research in Fundamental Sciences, Tehran (2010–2015). Thesis: Transport Properties of Strained Graphene and Transition Metal Dichalcogenides</li>
+            <li><strong>PhD (Theoretical Physics)</strong>, IPM — Institute for Research in Fundamental Sciences, Tehran (2010–2015). Thesis: Transport Properties of Strained Graphene and Transition Metal Dichalcogenides</li>
             <li><strong>MSc</strong>, University of Tehran (2007–2010). Thesis: Fabrication of optical magnetic mirrors using bent and mushroom-like carbon nanotubes (experimental &amp; theory)</li>
-            <li><strong>BSc</strong>, University of Semnan (2004–2007). Solid state physics</li>
+            <li><strong>BSc</strong>, University of Semnan (2004–2007), Solid state physics</li>
           </ul>
         </article>
 
-        <!-- Publications snapshot -->
         <article class="card">
           <h3>Publications (snapshot)</h3>
           <ul>
-             <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
-             <li><a href="https://arxiv.org/search/?query=Rostami%2C+Habib&amp;searchtype=author&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50" target="_blank" rel="noreferrer">arXiv (Habib Rostami)</a></li>
+            <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
+            <li><a href="https://arxiv.org/search/?query=Rostami%2C+Habib&amp;searchtype=author&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50" target="_blank" rel="noreferrer">arXiv (Habib Rostami)</a></li>
           </ul>
         </article>
       </div>
@@ -406,7 +422,7 @@
         <div class="card">
           <h3>Address</h3>
           <p>Department of Physics<br/>University of Bath<br/>Claverton Down, Bath BA2 7AY, UK</p>
-          <p>Email: <a href="mailto:hr745@bath.ac.uk">you@bath.ac.uk</a></p>
+          <p>Email: <a href="mailto:hr745@bath.ac.uk">hr745@bath.ac.uk</a></p>
         </div>
         <div class="card">
           <h3>Links</h3>
@@ -428,20 +444,26 @@
 
   <script>
     function toggleDrawer(btn){
-      const drawer=document.getElementById('drawer');
-      const open=!drawer.classList.contains('open');
-      drawer.classList.toggle('open',open);
-      if(btn){btn.setAttribute('aria-expanded',String(open));}
+      const drawer = document.getElementById('drawer');
+      const open = !drawer.classList.contains('open');
+      drawer.classList.toggle('open', open);
+      if (btn) {
+        btn.setAttribute('aria-expanded', String(open));
+      }
     }
+
     document.getElementById('year').textContent = new Date().getFullYear();
-    const sections=[...document.querySelectorAll('main > section')];
+
+    const sections = [...document.querySelectorAll('main > section')];
+
     function show(id){
-      sections.forEach(s=>s.classList.toggle('active', s.id===id));
-      history.replaceState(null,'','#'+id);
+      sections.forEach(s => s.classList.toggle('active', s.id === id));
+      history.replaceState(null, '', '#' + id);
       return false;
     }
-    // initialize from hash or default to home
-    const initial=(location.hash||'#home').slice(1);
+
+    // initialise from hash or default to home
+    const initial = (location.hash || '#home').slice(1);
     show(initial);
   </script>
 </body>
