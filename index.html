@@ -76,14 +76,10 @@
         display:block;background:none;border:1px solid var(--border);
         padding:.35rem .6rem;border-radius:.75rem;color:var(--text);cursor:pointer;
       }
-      .drawer{
-        display:none;
-        position:fixed;
-        top:64px;left:0;right:0;bottom:0;
-        background:#ffffff;       /* fully opaque white */
-        overflow:auto;
-        z-index:9;                /* below header (z=10) */
-      }
+    /* Hide mobile drawer by default (desktop view) */
+    .drawer{
+      display:none;
+    }
       .drawer.open{display:block}
       .drawer a{
         display:block;padding:1rem 1.25rem;border-bottom:1px solid var(--border)
