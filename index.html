@@ -11,6 +11,7 @@
   <meta property="og:image" content="assets/og-image.jpg" />
   <link rel="icon" href="assets/favicon.png" />
   <style>
+    /* ===== Theme variables ===== */
     :root{
       --bg:#ffffff;
       --card:#ffffff;
@@ -27,16 +28,22 @@
     html,body{
       margin:0;padding:0;background:var(--bg);color:var(--text);
       font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      height:100%;overflow:hidden;
+      height:100%;overflow:hidden; /* use internal scrolling in sections */
     }
-
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
-
     .wrap{max-width:var(--max);margin:0 auto;padding:0 1rem}
 
-    main.wrap{height:calc(100vh - 64px);overflow:hidden}
-    main.wrap>section{display:none;height:100%;overflow:auto}
+    /* main area: single-page app, one section visible at a time */
+    main.wrap{
+      height:calc(100vh - 64px); /* viewport minus header */
+      overflow:hidden;
+    }
+    main.wrap>section{
+      display:none;
+      height:100%;
+      overflow:auto; /* each section scrolls internally */
+    }
     main.wrap>section.active{display:block}
 
     /* ===== Header / nav ===== */
@@ -59,55 +66,31 @@
       background:linear-gradient(135deg,var(--brand),var(--accent));
       box-shadow:0 0 0 2px #00000014;
     }
-    .links-right{
-      display:flex;gap:1rem;margin-left:auto;white-space:nowrap;
-    }
-    .menu-btn{
-      display:none;
-      background:none;
-      border:1px solid var(--border);
-      padding:.35rem .6rem;
-      border-radius:.75rem;
-      color:var(--text);
-      cursor:pointer;
-    }
+    .links-right{display:flex;gap:1rem;margin-left:auto;white-space:nowrap}
+    .menu-btn{display:none}
 
-    /* Drawer (mobile dropdown) */
-    .drawer{
-      display:none;
-      background:#ffffff;
-      border-top:1px solid var(--border);
-    }
-    .drawer a{
-      display:block;
-      padding:.85rem 1.25rem;
-      border-bottom:1px solid var(--border);
-    }
-    .drawer a:last-child{border-bottom:none;}
-
-    .drawer.open{display:block;}
-
-    /* ===== Mobile layout ===== */
+    /* ===== Mobile nav: full-screen white overlay below header ===== */
     @media (max-width:820px){
-      .links-right{display:none;}
-      .menu-btn{display:block;}
-      /* main gets full viewport height minus header + potential menu;
-         overflow:auto so page still scrolls */
-      main.wrap{
-        height:auto;
-        min-height:calc(100vh - 64px);
-        overflow:visible;
+      .links-right{display:none}
+      .menu-btn{
+        display:block;background:none;border:1px solid var(--border);
+        padding:.35rem .6rem;border-radius:.75rem;color:var(--text);cursor:pointer;
       }
-      main.wrap>section{
-        height:auto;
-        overflow:visible;
+      .drawer{
+        display:none;
+        position:fixed;
+        top:64px;left:0;right:0;bottom:0;
+        background:#ffffff;       /* fully opaque white */
+        overflow:auto;
+        z-index:9;                /* below header (z=10) */
+      }
+      .drawer.open{display:block}
+      .drawer a{
+        display:block;padding:1rem 1.25rem;border-bottom:1px solid var(--border)
       }
     }
 
-    /* ===== Sections / cards ===== */
-    section{padding:calc(64px + 1rem) 0 2.25rem;border-top:1px solid var(--border)}
-    h2{font-size:1.5rem;margin:0 0 1rem}
-
+    /* ===== Hero / buttons ===== */
     .hero{padding:1.25rem 0 2rem}
     .hero h1{font-size:clamp(1.8rem,5vw,3rem);line-height:1.15;margin:.25rem 0}
     .hero p{color:var(--muted);max-width:60ch;margin:.5rem 0 1rem}
@@ -117,6 +100,10 @@
       border-radius:12px;border:1px solid var(--border);background:#f6f7f9;color:var(--text)
     }
     .btn.primary{background:linear-gradient(135deg,var(--brand),var(--accent));color:#0b1020;font-weight:700}
+
+    /* ===== Sections / cards ===== */
+    section{padding:calc(64px + 1rem) 0 2.25rem;border-top:1px solid var(--border)}
+    h2{font-size:1.5rem;margin:0 0 1rem}
 
     .grid{display:grid;gap:1rem}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
@@ -179,8 +166,7 @@
           <span class="brand-logo" aria-hidden="true"></span>
           <span>Rostami Lab</span>
         </a>
-
-        <div class="links-right">
+        <div class="links-right" role="navigation" aria-label="Primary links">
           <a href="#research" onclick="return show('research')">Research</a>
           <a href="#people" onclick="return show('people')">People</a>
           <a href="#teaching" onclick="return show('teaching')">Teaching</a>
@@ -188,14 +174,12 @@
           <a href="#news-events" onclick="return show('news-events')">News &amp; Events</a>
           <a href="#contact" onclick="return show('contact')">Contact</a>
         </div>
-
         <button class="menu-btn" aria-controls="drawer" aria-expanded="false" onclick="toggleDrawer(this)">
           Menu
         </button>
       </nav>
     </div>
-
-    <!-- Mobile dropdown drawer; on desktop this never shows -->
+    <!-- Mobile-only full-screen drawer -->
     <div id="drawer" class="drawer" aria-label="Mobile menu">
       <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
       <a href="#people" onclick="toggleDrawer();return show('people')">People</a>
@@ -207,6 +191,7 @@
   </header>
 
   <main class="wrap">
+    <!-- ===== HOME ===== -->
     <section id="home" class="hero" aria-labelledby="hero-title">
       <p class="pill">University of Bath <span class="tag">Physics</span></p>
       <h1 id="hero-title">Rostami Lab</h1>
@@ -248,11 +233,223 @@
       </div>
     </section>
 
-    <!-- (rest of your sections unchanged; omitted here just to save space)
-         people, research, news-events, teaching, cv, contact
-         You can paste the exact versions you already had below this line. -->
-    <!-- ... all your other <section> blocks as before ... -->
+    <!-- ===== PEOPLE ===== -->
+    <section id="people" class="people" aria-labelledby="people-title">
+      <h2 id="people-title">People</h2>
 
+      <h3>Principal Investigator</h3>
+      <div class="grid">
+        <article class="card person">
+          <img class="avatar" src="assets/people/habib.jpg" alt="Dr Habib Rostami — Principal Investigator" />
+          <div>
+            <h3>Asst Prof Dr Habib Rostami <span class="tag">PI</span></h3>
+            <p class="meta">Quantum transport · Nonlinear optics · 2D materials</p>
+            <p><a href="mailto:hr745@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+      </div>
+
+      <h3>Postdoctoral Researchers</h3>
+      <div class="grid cols-3">
+        <article class="card person">
+          <img class="avatar" src="assets/people/shubham.jpg" alt="Dr Shubham Patel — Postdoctoral Researcher" />
+          <div>
+            <h3>Dr Shubham Patel <span class="tag">PDRA</span></h3>
+            <p class="meta">Nonlinear phononics · Quantum transport</p>
+            <p><a href="mailto:sp3346@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+      </div>
+
+      <h3>PhD Students</h3>
+      <div class="grid cols-3">
+        <article class="card person">
+          <img class="avatar" src="assets/people/pablo.jpg" alt="Pablo Reiser Ramirez — PhD Student" />
+          <div>
+            <h3>Pablo Reiser Ramirez <span class="tag">PhD</span></h3>
+            <p class="meta">Floquet–Keldysh · 2D materials</p>
+            <p><a href="mailto:pcir20@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+        <article class="card person">
+          <img class="avatar" src="assets/people/luke.jpg" alt="Luke Pimlott — PhD Student" />
+          <div>
+            <h3>Luke Pimlott <span class="tag">PhD</span></h3>
+            <p class="meta">Quantum transport · Many-body theory</p>
+            <p><a href="mailto:jlp62@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+        <article class="card person">
+          <img class="avatar" src="assets/people/rufus.jpg" alt="Rufus Stanier — PhD Student" />
+          <div>
+            <h3>Rufus Stanier <span class="tag">PhD</span></h3>
+            <p class="meta">Quantum transport · 2D materials</p>
+            <p><a href="mailto:rs3430@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+        <article class="card person">
+          <img class="avatar" src="assets/people/brook.jpg" alt="Brook Salter — PhD Student (co-supervised)" />
+          <div>
+            <h3>Brook Salter <span class="tag">PhD</span></h3>
+            <p class="meta">Mesoscopic physics · Theory</p>
+            <p><a href="mailto:bs2210@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+        <article class="card person">
+          <img class="avatar" src="assets/people/jamie.jpg" alt="Jamie Mclauchlan — PhD Student (co-supervised)" />
+          <div>
+            <h3>Jamie Mclauchlan <span class="tag">PhD</span></h3>
+            <p class="meta">Quantum transport · Computation</p>
+            <p><a href="mailto:jm3296@bath.ac.uk">Email</a> · <a href="#">Scholar</a> · <a href="#">ORCID</a> · <a href="#">GitHub</a></p>
+          </div>
+        </article>
+      </div>
+
+      <h3>Masters &amp; Final-year UG Projects</h3>
+      <div class="grid cols-3">
+        <article class="card person">
+          <img class="avatar" src="assets/people/placeholder.jpg" alt="MSc/MPhys projects" />
+          <div>
+            <h3>Projects</h3>
+            <p class="meta">Opportunities in mesoscopic physics, Keldysh techniques, and 2D materials.</p>
+            <p><a href="#contact" onclick="return show('contact')">Contact the PI</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH ===== -->
+    <section id="research" aria-labelledby="research-title">
+      <h2 id="research-title">Research Highlights</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <h3>Chiral phonons</h3>
+          <p class="meta">DM Juraschek, RM Geilhufe, H Zhu, M Basini, P Baum, A Baydin, … · <em>Nature Physics</em> (2025)</p>
+          <p><a href="#">Publisher</a></p>
+        </article>
+        <article class="card">
+          <h3>Quantum Geometric Injection and Shift Optical Forces Drive Coherent Phonons</h3>
+          <p class="meta">JL Pimlott, H Rostami · arXiv:2507.17814 (2025)</p>
+          <p><a href="#">arXiv</a></p>
+        </article>
+        <article class="card">
+          <h3>Fermi liquid theory of -wave altermagnets: demon modes and Fano-demon states</h3>
+          <p class="meta">H Rostami, J Hofmann · arXiv:2505.07083 (2025)</p>
+          <p><a href="#">arXiv</a></p>
+        </article>
+      </div>
+
+      <h3 id="pubs-title" style="margin-top:1.5rem">Publications</h3>
+      <div class="grid">
+        <article class="card">
+          <h3>Paper Title Goes Here (2025)</h3>
+          <p class="meta">A. First, <strong>H. YourName</strong>, B. Other · <em>Phys. Rev. X</em></p>
+          <p><a href="#">arXiv</a> · <a href="#">Publisher</a> · <a href="#">BibTeX</a></p>
+        </article>
+        <article class="card">
+          <h3>Another Great Result (2024)</h3>
+          <p class="meta">C. Collaborator, <strong>H. YourName</strong> · <em>Nat. Phys.</em></p>
+          <p><a href="#">arXiv</a> · <a href="#">Publisher</a> · <a href="#">Code</a></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== NEWS & EVENTS ===== -->
+    <section id="news-events" aria-labelledby="news-title">
+      <h2 id="news-title">News &amp; Events</h2>
+      <div class="grid cols-2">
+        <article class="card">
+          <h3>Oct 2025 — New PDRA joins</h3>
+          <p>Welcome to Shubham, who joins the group to work on nonlinear phononics and quantum transport.</p>
+        </article>
+        <article class="card">
+          <h3>Sep 2025 — Paper accepted</h3>
+          <p>Our work on interaction-induced Mott gap opening in Dirac materials has been accepted to <em>PRB</em>.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== TEACHING ===== -->
+    <section id="teaching" aria-labelledby="teaching-title">
+      <h2 id="teaching-title">Teaching</h2>
+      <div class="grid cols-2">
+        <article class="card">
+          <h3>Many-body Green's functions (UG)</h3>
+          <p class="meta">Finite-temperature techniques and applications.</p>
+        </article>
+        <article class="card">
+          <h3>PH30024 / PH40024</h3>
+          <p class="meta">Report writing and research analysis; supervision of projects in mesoscopic physics.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CV ===== -->
+    <section id="cv" aria-labelledby="cv-title">
+      <h2 id="cv-title">CV of Dr Habib Rostami</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Personal statement</h3>
+          <p>I am a condensed matter physicist and an assistant professor at the University of Bath, specializing in quantum many-body problems for real-world materials using analytical and numerical techniques, with expertise in quantum transport and light–matter interaction in 2D materials.</p>
+        </article>
+
+        <article class="card">
+          <h3>Positions</h3>
+          <ul>
+            <li><strong>Assistant professor (Lecturer)</strong>, University of Bath, Physics Department (2022–present)</li>
+            <li><strong>Researcher (fixed-term assistant professor)</strong>, Nordita/Stockholm University, Sweden (2019–2022)</li>
+            <li><strong>Postdoctoral researcher</strong>, Scuola Normale Superiore &amp; IIT Genova, Italy (2015–2017); Nordita/Stockholm University (2017–2018)</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Grants &amp; awards</h3>
+          <ul>
+            <li><strong>EPSRC New Investigator Award (UKRI)</strong> — tuneable nonlinear phononics in layered quantum materials</li>
+            <li><strong>VR Starting Grant</strong> (Swedish Research Council) — nonlinear optics &amp; transport in 2D materials</li>
+            <li><strong>Royal Society International Exchange</strong> — anomalous acoustoelectric effects with Prof. Robert Blick, Hamburg</li>
+            <li><strong>Best PhD Thesis Award</strong>, Iranian Physical Society</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Education</h3>
+          <ul>
+            <li><strong>PhD (Theoretical Physics)</strong>, IPM—Institute for Research in Fundamental Sciences, Tehran (2010–2015). Thesis: Transport Properties of Strained Graphene and Transition Metal Dichalcogenides</li>
+            <li><strong>MSc</strong>, University of Tehran (2007–2010). Thesis: Fabrication of optical magnetic mirrors using bent and mushroom-like carbon nanotubes (experimental &amp; theory)</li>
+            <li><strong>BSc</strong>, University of Semnan (2004–2007). Solid state physics</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Publications (snapshot)</h3>
+          <ul>
+             <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
+             <li><a href="https://arxiv.org/search/?query=Rostami%2C+Habib&amp;searchtype=author&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50" target="_blank" rel="noreferrer">arXiv (Habib Rostami)</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Address</h3>
+          <p>Department of Physics<br/>University of Bath<br/>Claverton Down, Bath BA2 7AY, UK</p>
+          <p>Email: <a href="mailto:hr745@bath.ac.uk">hr745@bath.ac.uk</a></p>
+        </div>
+        <div class="card">
+          <h3>Links</h3>
+          <ul>
+            <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
+            <li><a href="https://github.com/rostami-lab" target="_blank" rel="noreferrer">GitHub organisation</a></li>
+            <li><a href="#">X / Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -281,7 +478,7 @@
       return false;
     }
 
-    // initialise from hash or default to home
+    // initialize from hash or default to home
     const initial = (location.hash || '#home').slice(1);
     show(initial);
   </script>
