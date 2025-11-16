@@ -67,11 +67,13 @@
       box-shadow:0 0 0 2px #00000014;
     }
 
-    /* hide horizontal menu entirely (we use vertical drawer instead) */
-    .links-right{
-      gap:1rem;margin-left:auto;white-space:nowrap;
-    }
-
+/* show horizontal menu on desktop */
+.links-right{
+  display:flex;                 /* was: display:none */
+  gap:1rem;
+  margin-left:auto;
+  white-space:nowrap;
+}
     .menu-btn{display:none}
 
     /* ===== Desktop: vertical left menu (drawer) ===== */
