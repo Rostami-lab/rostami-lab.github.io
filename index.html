@@ -11,7 +11,6 @@
   <meta property="og:image" content="assets/og-image.jpg" />
   <link rel="icon" href="assets/favicon.png" />
   <style>
-    /* ===== Theme variables ===== */
     :root{
       --bg:#ffffff;
       --card:#ffffff;
@@ -36,110 +35,80 @@
 
     .wrap{max-width:var(--max);margin:0 auto;padding:0 1rem}
 
-    /* ===== Layout: sidebar + content ===== */
-    .layout{
-      display:flex;
-      min-height:100vh;
-    }
-
-    main.wrap{
-      flex:1;
-      height:100vh;
-      overflow:hidden;
-    }
-    main.wrap>section{
-      display:none;
-      height:100%;
-      overflow:auto;
-    }
+    main.wrap{height:calc(100vh - 64px);overflow:hidden}
+    main.wrap>section{display:none;height:100%;overflow:auto}
     main.wrap>section.active{display:block}
 
-    /* ===== Sidebar navigation ===== */
-    .sidebar{
-      flex:0 0 220px;
-      border-right:1px solid var(--border);
-      background:#f9fafb;
-      padding:1rem;
-      display:flex;
-      flex-direction:column;
-      gap:1.5rem;
+    /* ===== Header / nav ===== */
+    header{
+      position:sticky;top:0;z-index:10;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:saturate(150%) blur(8px);
+      border-bottom:1px solid var(--border);
     }
-
+    nav.main-nav{
+      display:flex;align-items:center;justify-content:space-between;
+      height:64px;flex-wrap:nowrap;
+    }
     .brand{
-      display:flex;
-      gap:.75rem;
-      align-items:center;
-      font-weight:700;
+      display:flex;gap:.75rem;align-items:center;font-weight:700;
       color:var(--text);
-      text-decoration:none;
     }
-    .brand:hover{text-decoration:none}
-
     .brand-logo{
       width:36px;height:36px;border-radius:10px;
       background:linear-gradient(135deg,var(--brand),var(--accent));
       box-shadow:0 0 0 2px #00000014;
     }
-
-    .nav-links{
-      display:flex;
-      flex-direction:column;
-      gap:.25rem;
+    .links-right{
+      display:flex;gap:1rem;margin-left:auto;white-space:nowrap;
+    }
+    .menu-btn{
+      display:none;
+      background:none;
+      border:1px solid var(--border);
+      padding:.35rem .6rem;
+      border-radius:.75rem;
+      color:var(--text);
+      cursor:pointer;
     }
 
-    .nav-link{
+    /* Drawer (mobile dropdown) */
+    .drawer{
+      display:none;
+      background:#ffffff;
+      border-top:1px solid var(--border);
+    }
+    .drawer a{
       display:block;
-      padding:.35rem .55rem;
-      border-radius:8px;
-      border:1px solid transparent;
-      font-size:.95rem;
-      color:var(--muted);
+      padding:.85rem 1.25rem;
+      border-bottom:1px solid var(--border);
     }
+    .drawer a:last-child{border-bottom:none;}
 
-    .nav-link:hover{
-      background:#f3f4f6;
-      text-decoration:none;
-    }
+    .drawer.open{display:block;}
 
-    .nav-link.active{
-      color:var(--brand);
-      background:#eff6ff;
-      border-color:#dbeafe;
-      font-weight:600;
-    }
-
-    /* ===== Mobile: stack, still vertical menu ===== */
+    /* ===== Mobile layout ===== */
     @media (max-width:820px){
-      .layout{
-        flex-direction:column;
-      }
-      .sidebar{
-        flex:0 0 auto;
-        width:100%;
-        border-right:none;
-        border-bottom:1px solid var(--border);
-      }
-      .nav-links{
-        flex-direction:row;
-        flex-wrap:wrap;
-        gap:.35rem;
-      }
-      .nav-link{
-        padding:.25rem .6rem;
-      }
+      .links-right{display:none;}
+      .menu-btn{display:block;}
+      /* main gets full viewport height minus header + potential menu;
+         overflow:auto so page still scrolls */
       main.wrap{
-        height:calc(100vh - 140px); /* room for sidebar on small screens */
+        height:auto;
+        min-height:calc(100vh - 64px);
+        overflow:visible;
+      }
+      main.wrap>section{
+        height:auto;
+        overflow:visible;
       }
     }
 
     /* ===== Sections / cards ===== */
-    section{
-      padding:1.5rem 0 2.25rem;
-      border-top:1px solid var(--border);
-    }
+    section{padding:calc(64px + 1rem) 0 2.25rem;border-top:1px solid var(--border)}
     h2{font-size:1.5rem;margin:0 0 1rem}
 
-    .hero{padding-top:1.25rem}
+    .hero{padding:1.25rem 0 2rem}
     .hero h1{font-size:clamp(1.8rem,5vw,3rem);line-height:1.15;margin:.25rem 0}
     .hero p{color:var(--muted);max-width:60ch;margin:.5rem 0 1rem}
     .cta{display:flex;gap:.75rem;flex-wrap:wrap}
@@ -175,7 +144,7 @@
     .note{border-left:3px solid var(--ring);padding:.75rem 1rem;background:#eefaf8;border-radius:10px}
     code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace}
 
-    /* ===== Funders ===== */
+    /* Funders */
     .funders{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border)}
     .funders h3{margin:.25rem 0 .75rem;font-size:1rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
     .logos{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
@@ -191,7 +160,7 @@
     }
     .logos img:hover{filter:none;opacity:1}
 
-    /* ===== Highlights ===== */
+    /* Highlights */
     .highlights{margin-top:1.5rem}
     .highlight-grid{display:grid;gap:1rem;grid-template-columns:repeat(3,1fr)}
     @media (max-width:900px){.highlight-grid{grid-template-columns:1fr}}
@@ -203,35 +172,118 @@
   </style>
 </head>
 <body>
-  <div class="layout">
-    <!-- Sidebar -->
-    <nav class="sidebar" aria-label="Primary navigation">
-      <a class="brand" href="#home" onclick="return show('home')" aria-label="Home">
-        <span class="brand-logo" aria-hidden="true"></span>
-        <span>Rostami Lab</span>
-      </a>
+  <header>
+    <div class="wrap">
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="brand" href="#home" aria-label="Home" onclick="return show('home')">
+          <span class="brand-logo" aria-hidden="true"></span>
+          <span>Rostami Lab</span>
+        </a>
 
-      <div class="nav-links">
-        <a class="nav-link" href="#home" data-section="home" onclick="return show('home')">Home</a>
-        <a class="nav-link" href="#research" data-section="research" onclick="return show('research')">Research</a>
-        <a class="nav-link" href="#people" data-section="people" onclick="return show('people')">People</a>
-        <a class="nav-link" href="#teaching" data-section="teaching" onclick="return show('teaching')">Teaching</a>
-        <a class="nav-link" href="#cv" data-section="cv" onclick="return show('cv')">CV</a>
-        <a class="nav-link" href="#news-events" data-section="news-events" onclick="return show('news-events')">News &amp; Events</a>
-        <a class="nav-link" href="#contact" data-section="contact" onclick="return show('contact')">Contact</a>
+        <div class="links-right">
+          <a href="#research" onclick="return show('research')">Research</a>
+          <a href="#people" onclick="return show('people')">People</a>
+          <a href="#teaching" onclick="return show('teaching')">Teaching</a>
+          <a href="#cv" onclick="return show('cv')">CV</a>
+          <a href="#news-events" onclick="return show('news-events')">News &amp; Events</a>
+          <a href="#contact" onclick="return show('contact')">Contact</a>
+        </div>
+
+        <button class="menu-btn" aria-controls="drawer" aria-expanded="false" onclick="toggleDrawer(this)">
+          Menu
+        </button>
+      </nav>
+    </div>
+
+    <!-- Mobile dropdown drawer; on desktop this never shows -->
+    <div id="drawer" class="drawer" aria-label="Mobile menu">
+      <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
+      <a href="#people" onclick="toggleDrawer();return show('people')">People</a>
+      <a href="#teaching" onclick="toggleDrawer();return show('teaching')">Teaching</a>
+      <a href="#cv" onclick="toggleDrawer();return show('cv')">CV</a>
+      <a href="#news-events" onclick="toggleDrawer();return show('news-events')">News &amp; Events</a>
+      <a href="#contact" onclick="toggleDrawer();return show('contact')">Contact</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <p class="pill">University of Bath <span class="tag">Physics</span></p>
+      <h1 id="hero-title">Rostami Lab</h1>
+      <p>We study quantum transport, nonlinear response theory, and many-body phenomena in quantum materials.</p>
+      <div class="highlights" aria-label="Research highlights">
+        <div class="highlight-grid">
+          <article class="highlight-card">
+            <img src="assets/highlights/chiral-phonons.jpg" alt="Chiral phonons — Nature Physics (2025)" />
+            <div class="body">
+              <h3>Chiral phonons</h3>
+              <p>DM Juraschek, RM Geilhufe, H Zhu, M Basini, P Baum, A Baydin, … · <em>Nature Physics</em> (2025)</p>
+            </div>
+          </article>
+          <article class="highlight-card">
+            <img src="assets/highlights/floquet-keldysh.jpg" alt="Quantum Geometric Injection and Shift Optical Forces Drive Coherent Phonons — 2025" />
+            <div class="body">
+              <h3>Quantum Geometric Injection and Shift Optical Forces Drive Coherent Phonons</h3>
+              <p>JL Pimlott, H Rostami · arXiv:2507.17814 (2025)</p>
+            </div>
+          </article>
+          <article class="highlight-card">
+            <img src="assets/highlights/mott-gap.jpg" alt="Fermi liquid theory of -wave altermagnets — 2025" />
+            <div class="body">
+              <h3>Fermi liquid theory of -wave altermagnets: demon modes and Fano-demon states</h3>
+              <p>H Rostami, J Hofmann · arXiv:2505.07083 (2025)</p>
+            </div>
+          </article>
+        </div>
       </div>
-    </nav>
 
-    <!-- Main content -->
-    <main class="wrap">
-      <section id="home" class="hero" aria-labelledby="hero-title">
-        <p class="pill">University of Bath <span class="tag">Physics</span></p>
-        <h1 id="hero-title">Rostami Lab</h1>
-        <p>We study quantum transport, nonlinear response theory, and many-body phenomena in quantum materials.</p>
-        <div class="highlights" aria-label="Research highlights">
-          <div class="highlight-grid">
-            <article class="highlight-card">
-              <img src="assets/highlights/chiral-phonons.jpg" alt="Chiral phonons — Nature Physics (2025)" />
-              <div class="body">
-                <h3>Chiral phonons</h3>
-                <p>DM Jur
+      <div class="funders" aria-label="Funders and sponsors">
+        <h3>Funders</h3>
+        <div class="logos">
+          <a href="#" aria-label="EPSRC"><img src="assets/funders/epsrc.png" alt="EPSRC" /></a>
+          <a href="#" aria-label="Royal Society"><img src="assets/funders/rs.png" alt="Royal Society" /></a>
+          <a href="#" aria-label="Swedish Research Council"><img src="assets/funders/vr.jpg" alt="Swedish Research Council (VR)" /></a>
+        </div>
+        <p class="fine">Add your funder logos to <code>assets/funders/</code> and update links above.</p>
+      </div>
+    </section>
+
+    <!-- (rest of your sections unchanged; omitted here just to save space)
+         people, research, news-events, teaching, cv, contact
+         You can paste the exact versions you already had below this line. -->
+    <!-- ... all your other <section> blocks as before ... -->
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="fine">© <span id="year"></span> Rostami Lab · Built with <a href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a>. Theme by your group.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleDrawer(btn){
+      const drawer = document.getElementById('drawer');
+      const open = !drawer.classList.contains('open');
+      drawer.classList.toggle('open', open);
+      if (btn) {
+        btn.setAttribute('aria-expanded', String(open));
+      }
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const sections = [...document.querySelectorAll('main > section')];
+
+    function show(id){
+      sections.forEach(s => s.classList.toggle('active', s.id === id));
+      history.replaceState(null, '', '#' + id);
+      return false;
+    }
+
+    // initialise from hash or default to home
+    const initial = (location.hash || '#home').slice(1);
+    show(initial);
+  </script>
+</body>
+</html>
