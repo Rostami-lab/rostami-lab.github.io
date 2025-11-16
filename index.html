@@ -67,13 +67,13 @@
       box-shadow:0 0 0 2px #00000014;
     }
 
-/* show horizontal menu on desktop */
-.links-right{
-  display:flex;                 /* was: display:none */
-  gap:2.5rem;
-  margin-left:auto;
-  white-space:nowrap;
-}
+    /* show horizontal menu on desktop */
+    .links-right{
+      display:flex;
+      gap:2.5rem;
+      margin-left:auto;
+      white-space:nowrap;
+    }
     .menu-btn{display:none}
 
     /* ===== Desktop: vertical left menu (drawer) ===== */
@@ -94,9 +94,9 @@
         display:none;
         position:fixed;
         top:64px;left:0;right:0;bottom:0;
-        background:#ffffff;       /* fully opaque white */
+        background:#ffffff;
         overflow:auto;
-        z-index:9;                /* below header (z=10) */
+        z-index:9;
         max-width:none;
         margin:0;
         padding:0;
@@ -230,10 +230,10 @@
             </div>
           </article>
           <article class="highlight-card">
-            <img src="assets/highlights/mott-gap.jpg" alt="Fermi liquid theory of -wave altermagnets — 2025" />
+            <img src="assets/highlights/mott-gap.jpg" alt="Fermi liquid theory of d-wave altermagnets — 2025" />
             <div class="body">
-              <h3>Fermi liquid theory of -wave altermagnets: demon modes and Fano-demon states</h3>
-              <p>H Rostami, J Hofmann · arXiv:2505.07083 (2025)</p>
+              <h3>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</h3>
+              <p>H Rostami, J Hofmann · in press in <em>Physical Review Letters</em> (2025)</p>
             </div>
           </article>
         </div>
@@ -259,8 +259,12 @@
           <img class="avatar" src="assets/people/habib.jpg" alt="Dr Habib Rostami — Principal Investigator" />
           <div>
             <h3>Asst Prof Dr Habib Rostami <span class="tag">PI</span></h3>
-            <p class="meta"> Many-body physics · Nonlinear quantum transport/optics · Quantum Materials</p>
-            <p><a href="mailto:hr745@bath.ac.uk">Email</a> · <a href="https://scholar.google.com/citations?hl=en&user=kbTNxXgAAAAJ&view_op=list_works">Scholar</a> · <a href="https://orcid.org/0000-0002-9521-1008">ORCID</a> 
+            <p class="meta">Many-body physics · Nonlinear quantum transport/optics · Quantum materials</p>
+            <p>
+              <a href="mailto:hr745@bath.ac.uk">Email</a> ·
+              <a href="https://scholar.google.com/citations?hl=en&user=kbTNxXgAAAAJ&view_op=list_works">Scholar</a> ·
+              <a href="https://orcid.org/0000-0002-9521-1008">ORCID</a>
+            </p>
           </div>
         </article>
       </div>
@@ -272,7 +276,7 @@
           <div>
             <h3>Dr Shubham Patel <span class="tag">PDRA</span></h3>
             <p class="meta">Nonlinear phononics · Quantum transport</p>
-            <p><a href="mailto:sp3346@bath.ac.uk">Email</a> 
+            <p><a href="mailto:sp3346@bath.ac.uk">Email</a></p>
           </div>
         </article>
       </div>
@@ -284,7 +288,7 @@
           <div>
             <h3>Pablo Reiser Ramirez <span class="tag">PhD</span></h3>
             <p class="meta">Floquet–Keldysh · 2D materials</p>
-            <p><a href="mailto:pcir20@bath.ac.uk">Email</a>  
+            <p><a href="mailto:pcir20@bath.ac.uk">Email</a></p>
           </div>
         </article>
         <article class="card person">
@@ -292,7 +296,7 @@
           <div>
             <h3>Luke Pimlott <span class="tag">PhD</span></h3>
             <p class="meta">Quantum transport · Many-body theory</p>
-            <p><a href="mailto:jlp62@bath.ac.uk">Email</a>  
+            <p><a href="mailto:jlp62@bath.ac.uk">Email</a></p>
           </div>
         </article>
         <article class="card person">
@@ -300,7 +304,7 @@
           <div>
             <h3>Rufus Stanier <span class="tag">PhD</span></h3>
             <p class="meta">Quantum transport · 2D materials</p>
-            <p><a href="mailto:rs3430@bath.ac.uk">Email</a>  
+            <p><a href="mailto:rs3430@bath.ac.uk">Email</a></p>
           </div>
         </article>
         <article class="card person">
@@ -308,7 +312,7 @@
           <div>
             <h3>Brook Salter <span class="tag">PhD</span></h3>
             <p class="meta">Mesoscopic physics · Theory</p>
-            <p><a href="mailto:bs2210@bath.ac.uk">Email</a> 
+            <p><a href="mailto:bs2210@bath.ac.uk">Email</a></p>
           </div>
         </article>
         <article class="card person">
@@ -316,7 +320,7 @@
           <div>
             <h3>Jamie Mclauchlan <span class="tag">PhD</span></h3>
             <p class="meta">Quantum transport · Computation</p>
-            <p><a href="mailto:jm3296@bath.ac.uk">Email</a>  
+            <p><a href="mailto:jm3296@bath.ac.uk">Email</a></p>
           </div>
         </article>
       </div>
@@ -326,8 +330,8 @@
         <article class="card person">
           <img class="avatar" src="assets/people/placeholder.jpg" alt="MSc/MPhys projects" />
           <div>
-            <h3>Contant for project topics</h3>
-            <p><a href="mailto:hr745@bath.ac.uk" onclick="return show('contact')">Contact the PI</a></p>
+            <h3>Contact for project topics</h3>
+            <p><a href="mailto:hr745@bath.ac.uk">Contact the PI</a></p>
           </div>
         </article>
       </div>
@@ -339,7 +343,10 @@
       <div class="grid cols-3">
         <article class="card">
           <h3>Chiral phonons</h3>
-          <p class="meta">DM Juraschek, RM Geilhufe, H Zhu, M Basini, P Baum, A Baydin, … · <em>Nature Physics volume 21, pages 1532–1540 (2025)</p>
+          <p class="meta">
+            DM Juraschek, RM Geilhufe, H Zhu, M Basini, P Baum, A Baydin, … ·
+            <em>Nature Physics</em> volume 21, pages 1532–1540 (2025)
+          </p>
           <p><a href="https://www.nature.com/articles/s41567-025-03001-9">Nature</a></p>
         </article>
         <article class="card">
@@ -348,8 +355,8 @@
           <p><a href="https://arxiv.org/abs/2507.17814">arXiv</a></p>
         </article>
         <article class="card">
-          <h3>Fermi liquid theory of -wave altermagnets: demon modes and Fano-demon states</h3>
-          <p class="meta">H Rostami, J Hofmann · in press in Physcial Review Letters</p>
+          <h3>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</h3>
+          <p class="meta">H Rostami, J Hofmann · in press in <em>Physical Review Letters</em></p>
           <p><a href="https://journals.aps.org/prl/accepted/10.1103/zqz6-sq2n">APS</a></p>
         </article>
       </div>
@@ -374,14 +381,19 @@
       <h2 id="news-title">News &amp; Events</h2>
       <div class="grid cols-2">
         <article class="card">
-          <h3>oct 2025 — New PhD joins</h3>
+          <h3><time datetime="2025-10">Oct 2025</time> — New PhD joins</h3>
           <p>Welcome to Rufus, who joins the group to work on driven quantum materials.</p>
-          <h3>June 2025 — New PDRA joins</h3>
+        </article>
+        <article class="card">
+          <h3><time datetime="2025-06">Jun 2025</time> — New PDRA joins</h3>
           <p>Welcome to Shubham, who joins the group to work on nonlinear phononics and optics.</p>
         </article>
         <article class="card">
-          <h3>Sep 2025 — Paper accepted</h3>
-          <p> Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states <em>PRL</em>.</p>
+          <h3><time datetime="2025-09">Sep 2025</time> — Paper accepted</h3>
+          <p>
+            <em>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</em>
+            accepted in <em>Physical Review Letters</em>.
+          </p>
         </article>
       </div>
     </section>
@@ -392,11 +404,13 @@
       <div class="grid cols-2">
         <article class="card">
           <h3>Phase transitions and critical phenomena</h3>
-          <p class="meta">Final Year/Master course.</p>
+          <p class="meta">Final-year / MSc course.</p>
+          <p>Renormalization group, universality, and critical behaviour in classical and quantum systems.</p>
         </article>
         <article class="card">
-          <h3>Advanced Problem solving</h3>
-          <p class="meta">Final Year/Master course.</p>
+          <h3>Advanced Problem Solving</h3>
+          <p class="meta">Final-year / MSc course.</p>
+          <p>Project-based course on analytical and numerical techniques for open-ended physics problems.</p>
         </article>
       </div>
     </section>
@@ -452,19 +466,23 @@
     <section id="contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Contact</h2>
       <div class="grid cols-2">
-        <div class="card">
+        <article class="card">
           <h3>Address</h3>
-          <p>Department of Physics<br/>University of Bath<br/>Claverton Down, Bath BA2 7AY, UK</p>
+          <p>
+            Department of Physics<br/>
+            University of Bath<br/>
+            Claverton Down, Bath BA2 7AY, UK
+          </p>
           <p>Email: <a href="mailto:hr745@bath.ac.uk">hr745@bath.ac.uk</a></p>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <h3>Links</h3>
           <ul>
             <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
             <li><a href="https://github.com/rostami-lab" target="_blank" rel="noreferrer">GitHub organisation</a></li>
             <li><a href="#">X / Twitter</a></li>
           </ul>
-        </div>
+        </article>
       </div>
     </section>
   </main>
