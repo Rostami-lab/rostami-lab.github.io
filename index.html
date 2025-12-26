@@ -10,6 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/og-image.jpg" />
   <link rel="icon" href="assets/favicon.png" />
+
   <style>
     /* ===== Theme variables ===== */
     :root{
@@ -132,14 +133,21 @@
     .meta{color:var(--muted);font-size:.95rem}
 
     .people .person{display:flex;gap:1rem;align-items:flex-start}
-    .avatar{flex:0 0 192px;width:192px;height:192px;border-radius:24px;background:#f3f5f7;object-fit:cover}
+    .avatar{
+      flex:0 0 192px;
+      width:192px;
+      height:192px;
+      border-radius:24px;
+      background:#f3f5f7;
+      object-fit:cover
+    }
 
-    /* Taller PI portrait only */
-   .pi-avatar{
-    width:192px;
-    aspect-ratio:3 / 4;
-    height:auto;
-    object-fit:cover;
+    /* Taller PI portrait only (must override avatar's fixed height) */
+    .pi-avatar{
+      height:256px;        /* taller than 192 */
+      aspect-ratio:3 / 4;  /* keeps portrait feel */
+      width:192px;
+      object-fit:cover;
     }
 
     footer{padding:2rem 0;color:var(--muted)}
@@ -183,6 +191,7 @@
     .highlight-card p{margin:0;color:var(--muted)}
   </style>
 </head>
+
 <body>
   <header>
     <div class="wrap">
@@ -204,6 +213,7 @@
         </button>
       </nav>
     </div>
+
     <!-- Vertical menu (desktop) / drawer (mobile) -->
     <div id="drawer" class="drawer" aria-label="Section menu">
       <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
@@ -215,44 +225,42 @@
     </div>
   </header>
 
-
-  <style>
-  /* ...your existing CSS... */
-
-  /* ===== Home group photo ===== */
-  .hero-photo{
-    margin-top:1.25rem;
-    border:1px solid var(--border);
-    border-radius:18px;
-    overflow:hidden;
-    background:#f3f5f7;
-  }
-  .hero-photo img{
-    display:block;
-    width:100%;
-    height:min(70vh, 520px);
-    object-fit:cover; /* crops nicely; change to 'contain' if you want zero cropping */
-  }
-  .hero-photo .caption{
-    padding:.7rem .9rem;
-    color:var(--muted);
-    font-size:.95rem;
-    border-top:1px solid var(--border);
-    background:#fff;
-  }
-</style>
-
-  
   <main class="wrap">
     <!-- ===== HOME ===== -->
     <section id="home" class="hero active" aria-labelledby="hero-title">
       <p class="pill">University of Bath <span class="tag">Physics</span></p>
       <h1 id="hero-title">Rostami Lab</h1>
       <p>We study quantum transport, nonlinear response theory, and many-body phenomena in quantum materials.</p>
-     <div class="hero-photo" aria-label="Group photo">
-  <img src="assets/people/group.jpeg" alt="Rostami Lab group photo" />
-  <div class="caption">Rostami Lab — group photo</div>
-  </div>
+
+      <!-- Research highlights on the HOME page (with placeholder images) -->
+      <div class="highlights" aria-label="Research highlights">
+        <div class="highlight-grid">
+          <article class="highlight-card">
+            <img src="assets/highlights/placeholder.jpg" alt="" />
+            <div class="body">
+              <h3>Research highlight 1</h3>
+              <p>Authors · <em>Journal</em> (Year)</p>
+            </div>
+          </article>
+
+          <article class="highlight-card">
+            <img src="assets/highlights/placeholder.jpg" alt="" />
+            <div class="body">
+              <h3>Research highlight 2</h3>
+              <p>Authors · <em>Journal</em> (Year)</p>
+            </div>
+          </article>
+
+          <article class="highlight-card">
+            <img src="assets/highlights/placeholder.jpg" alt="" />
+            <div class="body">
+              <h3>Research highlight 3</h3>
+              <p>Authors · <em>Journal</em> (Year)</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
       <div class="funders" aria-label="Funders and sponsors">
         <h3>Funders</h3>
         <div class="logos">
@@ -267,24 +275,21 @@
     <section id="people" class="people" aria-labelledby="people-title">
       <h2 id="people-title">People</h2>
 
-<h3>Principal Investigator</h3>
-<div class="grid">
-  <article class="card person">
-    <img class="avatar pi-avatar"
-         src="assets/people/habib-taller.jpeg"
-         alt="Dr Habib Rostami — Principal Investigator" />
-    <div>
-      <h3>Asst Prof Dr Habib Rostami <span class="tag">PI</span></h3>
-      <p class="meta">Many-body physics · Nonlinear quantum transport/optics · Quantum materials</p>
-      <p>
-        <a href="mailto:hr745@bath.ac.uk">Email</a> ·
-        <a href="https://scholar.google.com/citations?hl=en&user=kbTNxXgAAAAJ&view_op=list_works">Scholar</a> ·
-        <a href="https://orcid.org/0000-0002-9521-1008">ORCID</a>
-      </p>
-    </div>
-  </article>
-</div>
-
+      <h3>Principal Investigator</h3>
+      <div class="grid">
+        <article class="card person">
+          <img class="avatar pi-avatar" src="assets/people/habib-taller.jpeg" alt="Dr Habib Rostami — Principal Investigator" />
+          <div>
+            <h3>Asst Prof Dr Habib Rostami <span class="tag">PI</span></h3>
+            <p class="meta">Many-body physics · Nonlinear quantum transport/optics · Quantum materials</p>
+            <p>
+              <a href="mailto:hr745@bath.ac.uk">Email</a> ·
+              <a href="https://scholar.google.com/citations?hl=en&user=kbTNxXgAAAAJ&view_op=list_works">Scholar</a> ·
+              <a href="https://orcid.org/0000-0002-9521-1008">ORCID</a>
+            </p>
+          </div>
+        </article>
+      </div>
 
       <h3>Postdoctoral Researchers</h3>
       <div class="grid cols-3">
@@ -292,7 +297,7 @@
           <img class="avatar" src="assets/people/shubham.jpeg" alt="Dr Shubham Patel — Postdoctoral Researcher" />
           <div>
             <h3>Dr Shubham Patel <span class="tag">PDRA</span></h3>
-            <p class="meta">Nonlinear phononics · Quantum transport </p>
+            <p class="meta">Nonlinear phononics · Quantum transport</p>
             <p><a href="mailto:sp3346@bath.ac.uk">Email</a></p>
           </div>
         </article>
@@ -304,10 +309,11 @@
           <img class="avatar" src="assets/people/pablo.jpeg" alt="Pablo Reiser Ramirez — PhD Student" />
           <div>
             <h3>Pablo Reiser Ramirez <span class="tag">PhD</span></h3>
-            <p class="meta"> Nonlinear and toplogical phonon </p>
+            <p class="meta">Nonlinear and toplogical phonon</p>
             <p><a href="mailto:pcir20@bath.ac.uk">Email</a></p>
           </div>
         </article>
+
         <article class="card person">
           <img class="avatar" src="assets/people/luke.jpeg" alt="Luke Pimlott — PhD Student" />
           <div>
@@ -316,23 +322,28 @@
             <p><a href="mailto:jlp62@bath.ac.uk">Email</a></p>
           </div>
         </article>
+
         <article class="card person">
           <img class="avatar" src="assets/people/rufus.jpeg" alt="Rufus Stanier — PhD Student" />
           <div>
             <h3>Rufus Stanier <span class="tag">PhD</span></h3>
-            <p class="meta">Driven quantum materials and nonequilibrium </p>
+            <p class="meta">Driven quantum materials and nonequilibrium</p>
             <p><a href="mailto:rs3430@bath.ac.uk">Email</a></p>
           </div>
         </article>
-      <h3>Co-supervisioon PhD Students</h3>
+      </div>
+
+      <h3>Co-supervision PhD Students</h3>
+      <div class="grid cols-3">
         <article class="card person">
           <img class="avatar" src="assets/people/placeholder.jpg" alt="Brook Salter — PhD Student (co-supervised)" />
           <div>
             <h3>Brook Salter <span class="tag">PhD</span></h3>
-            <p class="meta"> </p>
+            <p class="meta"></p>
             <p><a href="mailto:bs2210@bath.ac.uk">Email</a></p>
           </div>
         </article>
+
         <article class="card person">
           <img class="avatar" src="assets/people/placeholder.jpg" alt="Jamie Mclauchlan — PhD Student (co-supervised)" />
           <div>
@@ -473,8 +484,8 @@
         <article class="card">
           <h3>Publications (snapshot)</h3>
           <ul>
-             <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
-             <li><a href="https://arxiv.org/search/?query=Rostami%2C+Habib&amp;searchtype=author&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50" target="_blank" rel="noreferrer">arXiv (Habib Rostami)</a></li>
+            <li><a href="https://scholar.google.com/citations?user=kbTNxXgAAAAJ&hl=en">Google Scholar (group)</a></li>
+            <li><a href="https://arxiv.org/search/?query=Rostami%2C+Habib&amp;searchtype=author&amp;abstracts=show&amp;order=-announced_date_first&amp;size=50" target="_blank" rel="noreferrer">arXiv (Habib Rostami)</a></li>
           </ul>
         </article>
       </div>
