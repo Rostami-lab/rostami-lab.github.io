@@ -40,7 +40,7 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       height:100%;
-      overflow:hidden; /* use internal scrolling in sections */
+      overflow:hidden; /* desktop: internal scrolling in sections */
     }
 
     a{color:var(--brand);text-decoration:none;text-underline-offset:3px}
@@ -52,7 +52,7 @@
       height:calc(100vh - 64px); /* viewport minus header */
       overflow:hidden;
     }
-    /* MOBILE FIX: use dynamic viewport height where supported (iOS Safari) */
+    /* iOS dynamic viewport height support */
     @supports (height: 100dvh){
       main.wrap{ height:calc(100dvh - 64px); }
     }
@@ -60,8 +60,8 @@
     main.wrap>section{
       display:none;
       height:100%;
-      overflow:auto; /* each section scrolls internally */
-      -webkit-overflow-scrolling: touch; /* MOBILE FIX: smooth/working scroll on iOS */
+      overflow:auto; /* each section scrolls internally on desktop */
+      -webkit-overflow-scrolling: touch;
     }
     main.wrap>section.active{display:block}
 
@@ -103,45 +103,47 @@
     .links-right a:hover{opacity:1}
     .menu-btn{display:none}
 
-    /* ===== Mobile nav: full-screen white overlay below header ===== */
-    .drawer{
-      display:none;
-      max-width:var(--max);
-      margin:0 auto;
-      padding:.35rem 0 .5rem .75rem;
-    }
+    /* ===== Drawer (moved OUTSIDE header) ===== */
+    .drawer{ display:none; }
 
-    /* === MOBILE MENU FIXES IMPLEMENTED HERE === */
+    /* ===== Mobile menu ===== */
     @media (max-width:820px){
       .menu-btn{
         display:block;background:none;border:1px solid var(--border);
         padding:.35rem .6rem;border-radius:.75rem;color:var(--text);cursor:pointer;
       }
 
+      .links-right{display:none}
+
       .drawer{
-        display:none;
         position:fixed;
         top:64px;left:0;right:0;bottom:0;
         background:#ffffff;
+        z-index:9999;
         overflow:auto;
         -webkit-overflow-scrolling: touch;
-        z-index:9999;              /* IMPORTANT: bring it above everything */
+        display:none;
         max-width:none;
         margin:0;
         padding:0;
       }
-      .drawer.open{display:block !important;} /* IMPORTANT: ensure it shows */
+      .drawer.open{display:block;}
 
       .drawer a{
-        display:block;padding:1rem 1.25rem;border-bottom:1px solid var(--border)
+        display:block;
+        padding:1rem 1.25rem;
+        border-bottom:1px solid var(--border);
+        color:var(--text);
       }
-      .links-right{display:none}
 
-      /* MOBILE FIX: allow page to scroll naturally if needed (prevents iOS “stuck” issues) */
+      /* mobile: let the page scroll normally (avoids iOS stuck issues) */
       html, body{ overflow:auto; }
       main.wrap{ height:auto; overflow:visible; }
       main.wrap>section{ height:auto; overflow:visible; }
     }
+
+    /* lock background scroll when drawer open (especially useful on iOS) */
+    body.drawer-open{ overflow:hidden; }
 
     /* ===== Hero ===== */
     .hero{padding:1.25rem 0 2rem}
@@ -208,7 +210,6 @@
       width:192px;
       object-fit:cover;
     }
-    /* MOBILE FIX: stack people cards vertically */
     @media (max-width:600px){
       .people .person{ flex-direction:column; }
       .avatar, .pi-avatar{ width:100%; max-width:360px; height:auto; }
@@ -238,7 +239,7 @@
     .highlight-card img{
       display:block;
       width:100%;
-      aspect-ratio: 1 / 1;  /* square thumbnails */
+      aspect-ratio: 1 / 1;
       height:auto;
       object-fit:cover;
     }
@@ -306,22 +307,26 @@
           <a href="#contact" onclick="return show('contact')">Contact</a>
         </div>
 
-        <!-- type="button" added to avoid any odd default behavior -->
-        <button type="button" class="menu-btn" aria-controls="drawer" aria-expanded="false" onclick="toggleDrawer(this)">
+        <button type="button"
+                class="menu-btn"
+                aria-controls="drawer"
+                aria-expanded="false"
+                onclick="toggleDrawer()">
           Menu
         </button>
       </nav>
     </div>
-
-    <div id="drawer" class="drawer" aria-label="Section menu">
-      <a href="#research" onclick="toggleDrawer();return show('research')">Research</a>
-      <a href="#people" onclick="toggleDrawer();return show('people')">People</a>
-      <a href="#teaching" onclick="toggleDrawer();return show('teaching')">Teaching</a>
-      <a href="#cv" onclick="toggleDrawer();return show('cv')">CV</a>
-      <a href="#news-events" onclick="toggleDrawer();return show('news-events')">News &amp; Events</a>
-      <a href="#contact" onclick="toggleDrawer();return show('contact')">Contact</a>
-    </div>
   </header>
+
+  <!-- IMPORTANT: Drawer moved OUTSIDE header to avoid iOS Safari fixed+sticky+backdrop bugs -->
+  <div id="drawer" class="drawer" aria-label="Section menu">
+    <a href="#research" onclick="toggleDrawer(false);return show('research')">Research</a>
+    <a href="#people" onclick="toggleDrawer(false);return show('people')">People</a>
+    <a href="#teaching" onclick="toggleDrawer(false);return show('teaching')">Teaching</a>
+    <a href="#cv" onclick="toggleDrawer(false);return show('cv')">CV</a>
+    <a href="#news-events" onclick="toggleDrawer(false);return show('news-events')">News &amp; Events</a>
+    <a href="#contact" onclick="toggleDrawer(false);return show('contact')">Contact</a>
+  </div>
 
   <main class="wrap">
     <!-- ===== HOME ===== -->
@@ -688,11 +693,17 @@
   </footer>
 
   <script>
-    function toggleDrawer(btn){
+    function toggleDrawer(forceOpen){
       const drawer = document.getElementById('drawer');
-      const open = !drawer.classList.contains('open');
+      const btn = document.querySelector('.menu-btn');
+
+      const open = (typeof forceOpen === 'boolean')
+        ? forceOpen
+        : !drawer.classList.contains('open');
+
       drawer.classList.toggle('open', open);
-      if (btn) btn.setAttribute('aria-expanded', String(open));
+      btn && btn.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('drawer-open', open);
     }
 
     document.getElementById('year').textContent = new Date().getFullYear();
