@@ -570,27 +570,109 @@
       </div>
     </section>
 
-    <!-- ===== NEWS & EVENTS ===== -->
-    <section id="news-events" aria-labelledby="news-title">
-      <h2 id="news-title">News &amp; Events</h2>
-      <div class="grid cols-2">
-        <article class="card">
-          <h3><time datetime="2025-10">Oct 2025</time> — New PhD joins</h3>
-          <p>Welcome to Rufus, who joins the group to work on driven quantum materials.</p>
-        </article>
-        <article class="card">
-          <h3><time datetime="2025-06">Jun 2025</time> — New PDRA joins</h3>
-          <p>Welcome to Shubham, who joins the group to work on nonlinear phononics and optics.</p>
-        </article>
-        <article class="card">
-          <h3><time datetime="2025-09">Sep 2025</time> — Paper accepted</h3>
-          <p>
-            <em>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</em>
-            accepted in <em>Physical Review Letters</em>.
-          </p>
-        </article>
+<!-- ===== NEWS & EVENTS ===== -->
+<section id="news-events" aria-labelledby="news-title">
+  <h2 id="news-title">News &amp; Events</h2>
+
+  <!-- Featured -->
+  <div class="pinned" aria-label="Featured">
+    <h3 class="subheading">Seminar series (coordination)</h3>
+    <ul class="event-list" role="list">
+      <li class="event-item pinned-item">
+        <div class="event-main">
+          <div class="event-title">
+            <span class="pill">Featured</span>
+            <a href="https://sites.google.com/view/nvcms/home" target="_blank" rel="noopener noreferrer">
+              Nordic–UK Condensed Matter Seminar Series
+            </a>
+          </div>
+          <p class="event-desc">Seminars on non-equilibrium phenomena and quantum materials.</p>
+        </div>
+      </li>
+
+      <li class="event-item pinned-item">
+        <div class="event-main">
+          <div class="event-title">
+            <span class="pill">Featured</span>
+            <a href="https://www.bath.ac.uk/case-studies/the-department-of-physics-colloquia/" target="_blank" rel="noopener noreferrer">
+              Department of Physics Colloquia (University of Bath)
+            </a>
+          </div>
+          <p class="event-desc">Department-wide colloquia with visiting and internal speakers.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- News list -->
+  <ul class="event-list" role="list" aria-label="Group news">
+    <li class="event-item">
+      <div class="event-main">
+        <div class="event-title">
+          <time datetime="2025-10">Oct 2025</time><span class="sep">—</span>New PhD joins
+        </div>
+        <p class="event-desc">Welcome to Rufus, who joins the group to work on driven quantum materials.</p>
       </div>
-    </section>
+    </li>
+
+    <li class="event-item">
+      <div class="event-main">
+        <div class="event-title">
+          <time datetime="2025-09">Sep 2025</time><span class="sep">—</span>Paper published
+        </div>
+        <p class="event-desc">
+          <em>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</em>
+          published in <em>Physical Review Letters</em>.
+        </p>
+      </div>
+    </li>
+
+    <li class="event-item">
+      <div class="event-main">
+        <div class="event-title">
+          <time datetime="2025-06">Jun 2025</time><span class="sep">—</span>New PDRA joins
+        </div>
+        <p class="event-desc">Welcome to Shubham, who joins the group to work on nonlinear phononics and optics.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<style>
+  /* News & Events (vertical list + featured box) */
+  #news-events .event-list { list-style: none; padding: 0; margin: 0; }
+  #news-events .event-item { padding: 14px 0; border-top: 1px solid rgba(0,0,0,0.08); }
+  #news-events .event-item:first-child { border-top: 0; }
+
+  #news-events .event-title { font-weight: 600; line-height: 1.35; }
+  #news-events .event-title time { font-weight: 600; }
+  #news-events .sep { opacity: 0.6; padding: 0 6px; }
+
+  #news-events .event-desc { margin: 6px 0 0; opacity: 0.85; }
+
+  #news-events .pinned {
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+  }
+  #news-events .subheading { font-size: 1rem; margin: 0 0 8px; }
+
+  #news-events .pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-right: 8px;
+    border: 1px solid rgba(0,0,0,0.15);
+    opacity: 0.85;
+  }
+
+  #news-events .pinned-item .event-title a { text-decoration: none; }
+  #news-events .pinned-item .event-title a:hover { text-decoration: underline; }
+</style>
+
+
 
     <!-- ===== TEACHING ===== -->
     <section id="teaching" aria-labelledby="teaching-title">
