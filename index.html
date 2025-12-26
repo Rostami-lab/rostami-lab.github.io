@@ -207,38 +207,44 @@
     </div>
   </header>
 
+
+  <style>
+  /* ...your existing CSS... */
+
+  /* ===== Home group photo ===== */
+  .hero-photo{
+    margin-top:1.25rem;
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    background:#f3f5f7;
+  }
+  .hero-photo img{
+    display:block;
+    width:100%;
+    height:min(70vh, 520px);
+    object-fit:cover; /* crops nicely; change to 'contain' if you want zero cropping */
+  }
+  .hero-photo .caption{
+    padding:.7rem .9rem;
+    color:var(--muted);
+    font-size:.95rem;
+    border-top:1px solid var(--border);
+    background:#fff;
+  }
+</style>
+
+  
   <main class="wrap">
     <!-- ===== HOME ===== -->
     <section id="home" class="hero active" aria-labelledby="hero-title">
       <p class="pill">University of Bath <span class="tag">Physics</span></p>
       <h1 id="hero-title">Rostami Lab</h1>
       <p>We study quantum transport, nonlinear response theory, and many-body phenomena in quantum materials.</p>
-      <div class="highlights" aria-label="Research highlights">
-        <div class="highlight-grid">
-          <article class="highlight-card">
-            <img src="assets/highlights/chiral-phonons.jpg" alt="" />
-            <div class="body">
-              <h3>Chiral phonons</h3>
-              <p>DM Juraschek, RM Geilhufe, H Zhu, M Basini, P Baum, A Baydin, … · <em>Nature Physics</em> (2025)</p>
-            </div>
-          </article>
-          <article class="highlight-card">
-            <img src="assets/highlights/wse2-orbital.jpg" alt="" />
-            <div class="body">
-              <h3>Hidden order revealed by light-driven Kerr rotation in Centrosymmetric bulk WSe2</h3>
-              <p> E Cappelluti, H Rostami, F Cilento · npj 2D Materials and Applications volume 9, Article number: 89 (2025)</p>
-            </div>
-          </article>
-          <article class="highlight-card">
-            <img src="assets/highlights/demon.jpg" alt="" />
-            <div class="body">
-              <h3>Fermi liquid theory of d-wave altermagnets: demon modes and Fano-demon states</h3>
-              <p>H Rostami, J Hofmann · in press in <em>Physical Review Letters</em> (2025)</p>
-            </div>
-          </article>
-        </div>
-      </div>
-
+     <div class="hero-photo" aria-label="Group photo">
+  <img src="assets/people/group.jpg" alt="Rostami Lab group photo" />
+  <div class="caption">Rostami Lab — group photo</div>
+  </div>
       <div class="funders" aria-label="Funders and sponsors">
         <h3>Funders</h3>
         <div class="logos">
